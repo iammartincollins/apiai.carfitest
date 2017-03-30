@@ -7,6 +7,12 @@ const bodyParser = require('body-parser');
 const restService = express();
 restService.use(bodyParser.json());
 
+var _product_details = {
+    lp: 'Lease Purchase details',
+    hp: 'Hire Purchase details',
+    pcp: 'Personal Contract Purchase details'
+};
+
 restService.post('/webhook', function (req, res) {
 
     console.log('hook request', req);
@@ -20,13 +26,9 @@ restService.post('/webhook', function (req, res) {
             if (requestBody.result) {
                 speech = '';
 
-                if (requestBody.result.fulfillment) {
-                    speech += requestBody.result.fulfillment.speech;
-                    speech += ' ';
-                }
-
-                if (requestBody.result.action) {
-                    speech += 'action: ' + requestBody.result.action;
+               switch (requestBody.result.action) {
+                    case: 'explain.product':
+                        speech = _product_details[requestBody.result.parameters.product];
                 }
             }
         }
