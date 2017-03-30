@@ -27,7 +27,7 @@ restService.post('/webhook', function (req, res) {
                 speech = '';
 
                switch (requestBody.result.action) {
-                    case: 'explain.product':
+                    case 'explain.product':
                         speech = _product_details[requestBody.result.parameters.product];
                 }
             }
