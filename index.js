@@ -83,7 +83,7 @@ restService.post('/webhook', function (req, res) {
                                  if (err || !res.ok) {
                                    console.log('Oh no! error');
                                  } else {
-                                   console.log("Print me: ' + res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print));
+                                   console.log('Print me: ' + res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print));
                                  }
                                });
                         }
