@@ -84,6 +84,11 @@ restService.post('/webhook', function (req, res) {
                                    console.log('Oh no! error');
                                  } else {
                                    console.log('Print me: ' + res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print);
+                                     return res.json({
+                                        speech: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print,
+                                        displayText: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print,
+                                        source: 'apiai-webhook-sample'
+                                    });
                                  }
                                });
                         }
