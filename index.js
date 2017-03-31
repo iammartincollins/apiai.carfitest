@@ -7,7 +7,7 @@ const sa = require('superagent');
 const restService = express();
 restService.use(bodyParser.json());
 
-const build_request = (params) => {
+const _buildRequest = (params) => {
     return {
       "Credentials": {
         "apiKey": "5N8Dcfa7435sS8Pbw6",
