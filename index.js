@@ -2,10 +2,53 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const sa = require('superagent');
 
 const restService = express();
 restService.use(bodyParser.json());
+
+const build_request = (params) => {
+    return {
+      "Credentials": {
+        "apiKey": "5N8Dcfa7435sS8Pbw6",
+        "systemKey": "Codeweavers",
+        "associatedDealerKey": "",
+        "referrer": "https://demoplugins.codeweavers.net/debug/codeweavers/5N8Dcfa7435sS8Pbw6"
+      },
+      "Customer": {
+        "Reference": "58b99a18acddf"
+      },
+      "Parameters": {
+        "Term": params.months,
+        "CalculationType": "RegularPayment",
+        "Deposit": params.deposit.amount,
+        "AnnualMileage": params["annual-mileage"],
+        "RegularPayment": 200,
+        "Settlement": 0,
+        "PartExchange": 0,
+        "SpecificProductType": null
+      },
+      "VehicleRequests": [
+        {
+          "Dealer": null,
+          "Id": "Finance Plugin",
+          "Vehicle": {
+            "cashPrice": 22948,
+            "isNew": false,
+            "identifier": "BM2S20SPO5HDTA",
+            "identifierType": "caplongcode",
+            "type": "car",
+            "imageUrl": "http://codeweavers.localiis/content/product-examples/finance-plugins/flexicalc/used/vehicle.jpg",
+            "dealerVehicleUrl": "http://codeweavers.localiis//product-examples/finance-plugins/flexicalc/used",
+            "currentMileage": "30000",
+            "registrationNumber": "DV63NYO",
+            "registrationDate": "2015-03-01"
+          }
+        }
+      ],
+      "Referrer": "https://demoplugins.codeweavers.net/debug/codeweavers/5N8Dcfa7435sS8Pbw6"
+    }
+}
 
 var _product_details = {
     lp: 'Lease purchase is a form of conditional sale agreement, which means that the regular payments are similar to a lease/rental agreement but you will own the car at the end of the deal. You may be asked to pay a number of monthly payments at the start of your agreement (referred to as ‘advance payments’ and the leasing equivalent of a deposit) and a sum is usually deferred to the end of the deal.  The deferred sum will be determined by the age and mileage of the car at the end of the agreement. The difference between a lease purchase and a PCP agreement is that the deferred sum (referred to as a Guaranteed Minimum Future Value (GMFV) in a PCP deal) must be paid on a lease purchase agreement. On a PCP, it’s optional.',
@@ -29,6 +72,21 @@ restService.post('/webhook', function (req, res) {
                switch (requestBody.result.action) {
                     case 'explain.product':
                         speech = _product_details[requestBody.result.parameters.product];
+                    case 'new.calculation':
+                        if (!requestBody.result.actionIncomplete) {
+                            let params = requestBody.result.parameters;
+                             sa
+                               .post('https://demoservices.codeweavers.net/public/v3/JsonFinance/Calculate')
+                               .send(_buildRequest(params))
+                               .set('ContentType', 'application/json')
+                               .end(function(err, res){
+                                 if (err || !res.ok) {
+                                   console.log('Oh no! error');
+                                 } else {
+                                   console.log('yay got ' + JSON.stringify(res.body));
+                                 }
+                               });
+                        }
                 }
             }
         }
