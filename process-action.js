@@ -25,7 +25,6 @@ const process = (action, request) => {
                             if (err || !res.ok) {
                                 reject('Oh no! error');
                             } else {
-                                console.log('Print me: ' + res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print);
                                 resolve({
                                     speech: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print,
                                     displayText: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print
@@ -35,6 +34,12 @@ const process = (action, request) => {
                 } else {
                     reject('action not complete');
                 }
+                break;
+            case 'journey.vehicle-search':
+                resolve({
+                    speech: 'journey.vehicle-search hit',
+                    displayText: 'journey.vehicle-search hit'
+                });
                 break;
             default:
                 reject('Action not found');
