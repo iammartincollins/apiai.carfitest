@@ -3,6 +3,10 @@ const sa = require('superagent');
 const buildRequest = require('./build-request');
 const productDetails = require('./product-details');
 
+const ACTION_TYPE = {
+    LOAD_QUOTE: 'loadQuote',
+    NONE: ''
+};
 
 const process = (action, request) => {
     return new Promise((resolve, reject) => {
@@ -11,7 +15,8 @@ const process = (action, request) => {
                 const prodDetails = productDetails(request.parameters.product);
                 resolve({
                     speech: prodDetails,
-                    displayText: prodDetails
+                    displayText: prodDetails,
+                    action: ACTION_TYPE.NONE
                 });
                 break;
             case 'new.calculation':
@@ -26,8 +31,9 @@ const process = (action, request) => {
                                 reject('Oh no! error');
                             } else {
                                 resolve({
-                                    speech: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print,
-                                    displayText: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteActions.Print
+                                    speech: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteReference,
+                                    displayText: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteReference,
+                                    action: ACTION_TYPE.LOAD_QUOTE
                                 });
                             }
                         });
