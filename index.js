@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const processAction = require('./process-action');
+const getQuote = require('./getquote');
 
 const restService = express();
 restService.use(bodyParser.json());
@@ -17,6 +18,24 @@ restService.post('/webhook', function (req, res) {
                     source: 'apiai-webhook-sample',
                     action: data.action
                 });
+            });
+        }
+    } catch (err) {
+        console.error("Can't process request", err);
+        return res.status(400).json({
+            status: {
+                code: 400,
+                errorType: err.message
+            }
+        });
+    }
+});
+
+restService.get('/quote', function (req, res) {
+    try {
+        if (req.body && req.body.QuoteReference) {
+            getQuote(req.body.QuoteReference).then(data => {
+                return res.json(data);
             });
         }
     } catch (err) {
