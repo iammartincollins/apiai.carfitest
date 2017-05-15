@@ -56,6 +56,6 @@ restService.listen((process.env.PORT || 5000), function () {
 });
 
 restService.use(timeout(120000));
-restService.use((req, res, next){
+restService.use((req, res, next) => {
     if (!req.timedout) next();
 });
