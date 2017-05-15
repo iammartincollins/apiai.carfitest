@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const timeout = require('connect-timeout');
 const bodyParser = require('body-parser');
 const processAction = require('./process-action');
 const getQuote = require('./getquote');
@@ -52,4 +53,9 @@ restService.get('/quote', function (req, res) {
 
 restService.listen((process.env.PORT || 5000), function () {
     console.log("Server listening");
+});
+
+restService.use(timeout(120000));
+restService.use((req, res, next){
+    if (!req.timedout) next();
 });
