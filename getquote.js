@@ -14,7 +14,7 @@ const get = quoteRef => {
                 SystemKey: 'Codeweavers'
             })
             .end((error, response) => {
-                if (err || !res.ok) {
+                if (error || !response.ok) {
                     reject('Oh no! error');
                 } else {
                     console.log(response);
