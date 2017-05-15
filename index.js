@@ -32,7 +32,6 @@ restService.post('/webhook', function (req, res) {
 });
 
 restService.get('/quote', function (req, res) {
-    return res.json({success: 'great'});
     try {
         if (req.query && req.query.QuoteReference) {
             getQuote(req.query.QuoteReference).then(data => {
