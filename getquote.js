@@ -4,7 +4,6 @@ const sa = require('superagent');
 const get = quoteRef => {
     console.log("getQuote", quoteRef);
     return new Promise((resolve, reject) => {
-        resolve({itis: "working"});
         sa
             .get('https://demoservices.codeweavers.net/public/v3/JsonFinance/RetrieveQuote', 'GET')
             .query({
