@@ -14,14 +14,7 @@ const get = quoteRef => {
                 SystemKey: 'Codeweavers'
             })
             .end((error, response) => {
-                resolve(response, error);
-
-                if (error || !response.ok) {
-                    reject('Oh no! error');
-                } else {
-                    console.log(response);
-                    resolve(response);
-                }
+                resolve(response.text);
             });
     });
 };
