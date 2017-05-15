@@ -11,7 +11,7 @@ const get = quoteRef => {
             .end((error, response) => {
                 if (err || !res.ok) {
                     reject('Oh no! error');
-                } else
+                } else {
                     resolve(response);
                 }
             });
