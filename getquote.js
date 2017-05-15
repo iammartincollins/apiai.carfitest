@@ -1,3 +1,6 @@
+const Promise = require('promise');
+const sa = require('superagent');
+
 const get = quoteRef => {
     return new Promise((resolve, reject) => {
         sa
