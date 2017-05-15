@@ -2,6 +2,7 @@ const Promise = require('promise');
 const sa = require('superagent');
 
 const get = quoteRef => {
+    console.log("getQuote", quoteReference);
     return new Promise((resolve, reject) => {
         sa
             .get('https://demoservices.codeweavers.net/public/v3/JsonFinance/RetrieveQuote', 'GET')
