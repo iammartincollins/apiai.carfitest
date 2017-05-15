@@ -2,13 +2,13 @@ const Promise = require('promise');
 const sa = require('superagent');
 
 const get = quoteRef => {
-    console.log("getQuote", quoteReference);
+    console.log("getQuote", quoteRef);
     return new Promise((resolve, reject) => {
         sa
             .get('https://demoservices.codeweavers.net/public/v3/JsonFinance/RetrieveQuote', 'GET')
             .query({
                 ApiKey: '5N8Dcfa7435sS8Pbw6',
-                QuoteReference: quoteReference,
+                QuoteReference: quoteRef,
                 Referrer: 'https://demoplugins.codeweavers.net/debug/codeweavers/5N8Dcfa7435sS8Pbw6',
                 SystemKey: 'Codeweavers'
             })
