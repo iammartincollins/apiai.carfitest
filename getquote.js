@@ -6,6 +6,7 @@ const get = quoteRef => {
     return new Promise((resolve, reject) => {
         sa
             .get('https://demoservices.codeweavers.net/public/v3/JsonFinance/RetrieveQuote', 'GET')
+            .set('ContentType', 'application/json')
             .query({
                 ApiKey: '5N8Dcfa7435sS8Pbw6',
                 QuoteReference: quoteRef,
