@@ -32,7 +32,7 @@ restService.post('/webhook', function (req, res) {
 });
 
 restService.get('/quote', function (req, res) {
-    console.log(req);
+    console.log(req.query);
     return res.json({success: 'great'});
     try {
         if (req.body && req.body.QuoteReference) {
