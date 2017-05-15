@@ -19,7 +19,8 @@ restService.post('/webhook', function (req, res) {
                     speech: data.speech,
                     displayText: data.displayText,
                     source: 'apiai-webhook-sample',
-                    action: data.action
+                    action: data.action,
+                    data: data.data
                 });
             });
         }

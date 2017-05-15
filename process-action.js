@@ -33,7 +33,8 @@ const process = (action, request) => {
                                 resolve({
                                     speech: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteReference,
                                     displayText: res.body.VehicleResults[0].FinanceProductResults[0].Quote.QuoteReference,
-                                    action: ACTION_TYPE.LOAD_QUOTE
+                                    action: ACTION_TYPE.LOAD_QUOTE,
+                                    data: res.body
                                 });
                             }
                         });
