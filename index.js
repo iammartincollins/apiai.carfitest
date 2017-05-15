@@ -2,12 +2,14 @@
 
 const express = require('express');
 const timeout = require('connect-timeout');
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const processAction = require('./process-action');
 const getQuote = require('./getquote');
 
 const restService = express();
 restService.use(bodyParser.json());
+restService.use(cors())
 
 restService.post('/webhook', function (req, res) {
     try {
